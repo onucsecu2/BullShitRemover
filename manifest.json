@@ -1,0 +1,43 @@
+{
+  "name": "Remove hide post from facebook",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "permissions": ["activeTab", "declarativeContent", "storage","notifications"],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    { 
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["shit.js"]
+    }
+  ],
+  // "page_action": {
+  //   "default_popup": "popup.html",
+  //   "default_icon": {
+  //     "16": "images/bullshit_16.png",
+  //     "32": "images/bullshit_32.png",
+  //     "48": "images/bullshit_48.png",
+  //     "128": "images/bullshit_128.png"
+  //   }
+  // },
+  "browser_action": {
+    "default_title": "",
+    "default_icon": {
+      "16": "images/bullshit_16.png",
+      "32": "images/bullshit_32.png",
+      "48": "images/bullshit_48.png",
+      "128": "images/bullshit_128.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "images/bullshit_16.png",
+    "32": "images/bullshit_32.png",
+    "48": "images/bullshit_48.png",
+    "128": "images/bullshit_128.png"
+  },
+  "manifest_version": 2
+}
