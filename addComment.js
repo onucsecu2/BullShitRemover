@@ -15,9 +15,28 @@ try {
         	event.target.style.outline = "";
         	event.target.style.color ="";
         },true);
+
+        thisNode.addEventListener("mouseup",function(event){
+        	var Rawtxt=event.target.innerText;
+        	var n=Rawtxt.length;
+        	var txt=Rawtxt.substring(0,Math.min(70,n));
+        	saveCache(txt);
+        });
+
         thisNode = elements.iterateNext();
     }   
 }
 catch (e) {
     console.log( 'Error: Document tree modified during iteration ' + e );
+}
+function saveCache(str)
+{
+	
+	if(typeof localStorage['text']=== 'undefined'){
+		localStorage['text']="এই লকডাউনের সময় শুধু শুধু বসে না থেকে $";
+	}
+
+	var tmp=localStorage['text'];
+	let res=tmp.concat("$",str);
+	localStorage['text']=res;
 }

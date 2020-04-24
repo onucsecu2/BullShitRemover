@@ -8,11 +8,16 @@
 // var targetNode2 = document.getElementById('contentArea');
 // var ele=null;
 // (targetNode1===null)?ele=targetNode2:ele=targetNode1;
+var cont=[];
+cont=retriveCache(cont);
+  // alert(cont.length);
+// alert(cont);
 var count=0;
 var lastScrollTop = 0;
 window.addEventListener('scroll',function(){
+
 	var st = window.pageYOffset || document.documentElement.scrollTop;
-	  if (st > lastScrollTop){
+	  if (st > lastScrollTop && cont.length>0 ){
       // downscroll code
       	removeBullshit();
    	} 
@@ -102,25 +107,34 @@ window.addEventListener('scroll',function(){
 // 	// Later, you can stop observing
 
 function removeBullshit(){
-var cont=['এই লকডাউনের সময় শুধু শুধু বসে না থেকে'];
-var arr="//*[@class='_72vr']/span";
-var elements=document.evaluate(arr,document,null,XPathResult.UNORDERED_NODE_ITERATOR_TYPE,null);
 
-try {
-    var thisNode = elements.iterateNext();
+  var arr="//*[@class='_72vr']/span";
+  var elements=document.evaluate(arr,document,null,XPathResult.UNORDERED_NODE_ITERATOR_TYPE,null);
 
-    while (thisNode) {
-    	if(thisNode.textContent.includes(cont[0])){
-    			thisNode.remove();
-				console.log('bullshit/scam removed');
-				count++;
-				chrome.runtime.sendMessage({greeting: count});
-    	}
-        thisNode = elements.iterateNext();
-    }   
-}
-catch (e) {
-    console.log( 'Error: Document tree modified during iteration ' + e );
-}
+  try {
+      var thisNode = elements.iterateNext();
+
+      while (thisNode) {
+        for(var k=0;k<cont.length;k++){
+        	if(thisNode.textContent.includes(cont[k]) && cont[k].length>1){
+        			thisNode.remove();
+
+    				console.log('bullshit/scam removed');
+    				count++;
+    				chrome.runtime.sendMessage({greeting: count});
+        	}
+        }
+          thisNode = elements.iterateNext();
+      }   
+  }
+  catch (e) {
+      console.log( 'Error: Document tree modified during iteration ' + e );
+  }
 
 }
+function retriveCache(cont){
+  let str=localStorage['text'];
+  var array = str.split("$");
+  return array;
+}
+
