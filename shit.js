@@ -9,9 +9,9 @@
 // var ele=null;
 // (targetNode1===null)?ele=targetNode2:ele=targetNode1;
 var cont=[];
-cont=retriveCache(cont);
-  // alert(cont.length);
-// alert(cont);
+if(typeof localStorage['text']!== 'undefined')
+  cont=retriveCache(cont);
+
 var count=0;
 var lastScrollTop = 0;
 window.addEventListener('scroll',function(){
@@ -19,96 +19,15 @@ window.addEventListener('scroll',function(){
 	var st = window.pageYOffset || document.documentElement.scrollTop;
 	  if (st > lastScrollTop && cont.length>0 ){
       // downscroll code
-      	removeBullshit();
+      	if(typeof localStorage['text']!== 'undefined')
+          removeBullshit();
    	} 
    	lastScrollTop = st <= 0 ? 0 : st;
 });
-// Select the node that will be observed for mutations
-
-// var targetNode1 = document.getElementById('timeline_story_column');
-// var targetNode2 = document.getElementById('contentArea');
-// // Options for the observer (which mutations to observe)
-// if(targetNode2===null){
-// 	const targetNode=targetNode1;
-// 	const config = { attributes: false, childList: true, subtree: true };
-
-// 	// Callback function to execute when mutations are observed
-// 	const callback = function(mutationsList, observer) {
-// 	    // Use traditional 'for loops' for IE 11
-// 	    for(let mutation of mutationsList) {
-// 	        if (mutation.type === 'childList') {
-// 	        	removeBullshit();
-// 	            console.log('A child node has been added or removed.');
-// 	        }
-// 	    }
-// 	};
-
-// 	// Create an observer instance linked to the callback function
-// 	const observer = new MutationObserver(callback);
-
-// 	// Start observing the target node for configured mutations
-// 	observer.observe(targetNode, config);
-
-// 	// Later, you can stop observing
-// 	//observer.disconnect();
-// 	function removeBullshit() {
-// 		console.log('called ');
-// 		var ele=null;
-// 		var i;
-// 		var count=0;
-// 		ele=document.evaluate(xpath,document,null,XPathResult.UNORDERED_NODE_ITERATOR_TYPE,null);
-// 		for (i = 0; i < arr.length; i++) {
-// 			// ele=document.evaluate(arr[i],document,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null).singleNodeValue;
-			
-// 			if(ele!==null){
-// 				try {
-// 				    var thisNode = ele.iterateNext();
-// 				    while (thisNode) {
-// 				    	var nextNode;
-// 				        if(thisNode.textContent.includes(arr[i])){
-// 				        	nextNode=ele.iterateNext()
-// 				        	thisNode.remove();
-// 							console.log('bullshit/scam removed');
-// 							count++;
-// 							chrome.runtime.sendMessage({greeting: count});
-
-// 				        }
-// 				        thisNode = nextNode;
-// 				    }   
-// 				}
-// 				catch (e) {
-// 				    console.log( 'Error: Document tree modified during iteration ' + e );
-// 				}
-
-// 			}
-// 		}
-// 	}
-// }else{
-// 	const targetNode=targetNode2;
-// 	const config = { attributes: false, childList: true, subtree: true };
-
-// 	// Callback function to execute when mutations are observed
-// 	const callback = function(mutationsList, observer) {
-// 	    // Use traditional 'for loops' for IE 11
-// 	    for(let mutation of mutationsList) {
-// 	        if (mutation.type === 'childList') {
-// 	        	removeBullshit();
-// 	            console.log('A child node has been added or removed.');
-// 	        }
-// 	    }
-// 	};
-
-// 	// Create an observer instance linked to the callback function
-// 	const observer = new MutationObserver(callback);
-
-// 	// Start observing the target node for configured mutations
-// 	observer.observe(targetNode, config);
-
-// 	// Later, you can stop observing
 
 function removeBullshit(){
-
-  var arr="//*[@class='_72vr']/span";
+  var arr="//*[@role='article']";
+  //var arr="//*[@class='_72vr']/span";
   var elements=document.evaluate(arr,document,null,XPathResult.UNORDERED_NODE_ITERATOR_TYPE,null);
 
   try {
@@ -133,7 +52,9 @@ function removeBullshit(){
 
 }
 function retriveCache(cont){
-  let str=localStorage['text'];
+  // let str=localStorage['text'];
+  let str=localStorage.getItem('text');
+  console.log(str);
   var array = str.split("$");
   return array;
 }

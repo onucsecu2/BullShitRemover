@@ -4,7 +4,7 @@
 
 'use strict';
 
-let addComment = document.getElementById('addComment');
+let addComment = document.getElementById('addArticle');
 
 // chrome.storage.sync.get('color', function(data) {
 //   changeColor.style.backgroundColor = data.color;
@@ -12,9 +12,9 @@ let addComment = document.getElementById('addComment');
 
 // });
 
-addComment.onclick = function(element) {
+addArticle.onclick = function(element) {
 	chrome.tabs.executeScript({
-          file: 'addComment.js'
+          file: 'addArticle.js'
         });
 
 }

@@ -1,4 +1,8 @@
-var arr="//*[@class='_72vr']/span";
+
+// var arr="//*[@class='_72vr']/span";
+ var arr="//*[@role='article']";
+
+
 var elements=document.evaluate(arr,document,null,XPathResult.UNORDERED_NODE_ITERATOR_TYPE,null);
 
 try {
@@ -39,4 +43,6 @@ function saveCache(str)
 	var tmp=localStorage['text'];
 	let res=tmp.concat("$",str);
 	localStorage['text']=res;
+    localStorage.setItem('text', res);
+
 }
